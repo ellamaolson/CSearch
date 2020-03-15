@@ -1,4 +1,4 @@
-import { Component, OnInit} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ResourcesService, Resource } from '../resources.service';
 import { Observable } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
@@ -27,17 +27,23 @@ export class ResultsListComponent implements OnInit {
    * Get an observable array from the search service
    * containing results from querying the search database
    */
-  dataSource: Observable<any[]>;
-  columnsToDisplay = ['name', 'bundleSize'];
+  dataSource: Observable<any>;
+  columnsToDisplay = ['name', 'description'];
   expandedElement: Resource | null;
 
-  constructor(private resourceService: ResourcesService, private route: ActivatedRoute) {}
+  constructor(private resourceService: ResourcesService, private route: ActivatedRoute) {
+    this.dataSource = this.resourceService.getResources();
+    // this.dataSource.subscribe(result => {
+    //   console.log('Resources ', result);
+    // });
+  }
 
   ngOnInit() {
     this.searchTerm = this.route.snapshot.paramMap.get('searchTerm');
     console.log('THE SEARCH TERM IS: ', this.searchTerm);
     if (this.searchTerm !== null) {
-      this.dataSource = this.resourceService.queryApprovedResourcesBySearchTerm(this.searchTerm);
+      // call a search method, but for now just display all
+      this.dataSource = this.resourceService.getResources();
     }
   }
 }

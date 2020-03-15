@@ -8,7 +8,7 @@ describe('AppComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [RouterTestingModule, MatMenuModule],
-      declarations: [AppComponent, TopBarComponent]
+      declarations: [AppComponent, TopBarComponent],
     }).compileComponents();
   }));
 
@@ -18,16 +18,16 @@ describe('AppComponent', () => {
     expect(app).toBeTruthy();
   });
 
-  it(`should have as title 'Angular Ecosystem'`, () => {
+  it(`should have as title 'Resources Search'`, () => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.debugElement.componentInstance;
-    expect(app.title).toEqual('Angular Ecosystem');
+    expect(app.title).toEqual('Resources Search');
   });
 
   it('should render title in a h1 tag', () => {
     const fixture = TestBed.createComponent(AppComponent);
     fixture.detectChanges();
     const compiled = fixture.debugElement.nativeElement;
-    expect(compiled.querySelector('h1').textContent).toContain('Angular Ecosystem');
+    expect(compiled.querySelector('h1').textContent).toContain('Resources Search');
   });
 });

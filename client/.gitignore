@@ -46,5 +46,4 @@ testem.log
 Thumbs.db
 
 # Other
-.firebase/
 node_modules/

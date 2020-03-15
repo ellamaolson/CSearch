@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Observable } from 'rxjs';
-import { ResourcesService } from '../resources.service';
+import { ResourcesService, Resource } from '../resources.service';
 
 @Component({
   selector: 'app-glossary',
@@ -11,8 +11,7 @@ export class GlossaryComponent {
    * Get an observable array from the search service
    * containing all Resources from the search database
    */
-  allResources: Observable<any[]> = this.resourceService.getAllApprovedResources();
+  allResources: Observable<Resource[]> = this.resourceService.getResources();
 
-  constructor(private resourceService: ResourcesService) {
-  }
+  constructor(private resourceService: ResourcesService) {}
 }

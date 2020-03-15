@@ -2,7 +2,7 @@ import { Component, ViewChild } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
-import { ResourcesService, Resource, status } from '../resources.service';
+import { ResourcesService, Resource } from '../resources.service';
 
 @Component({
   selector: 'app-new-submission',
@@ -14,14 +14,8 @@ export class NewSubmissionComponent {
    * for required inputs.
    */
   submissionForm = new FormGroup({
-    bundleSize: new FormControl(''),
-    description: new FormControl('', [Validators.required]),
-    github: new FormControl(''),
-    link: new FormControl('', [Validators.required]),
     name: new FormControl('', [Validators.required]),
-    npm: new FormControl(''),
-    terms: new FormControl('', [Validators.required]),
-    type: new FormControl('', [Validators.required]),
+    description: new FormControl('', [Validators.required]),
   });
 
   /**
@@ -35,7 +29,7 @@ export class NewSubmissionComponent {
   dialogRef;
   statusUrl: string;
 
-  constructor(private resourceService: ResourcesService, private router: Router, public dialog: MatDialog) {}
+  constructor(private router: Router, public dialog: MatDialog) {}
 
   /**
    * Validate input, create a new submission, add it to the database, and notify of success.
@@ -49,45 +43,17 @@ export class NewSubmissionComponent {
     const formValue = this.submissionForm.value;
 
     const sub: Resource = {
-      bundleSize: formValue.bundleSize,
-      date: Date.now(),
-      description: formValue.description,
-      github: '',
-      link: formValue.link,
       name: formValue.name,
-      ngAdd: this.ngAddChecked,
-      ngUpdate: this.ngUpdateChecked,
-      npm: '',
-      status: status.waiting,
-      terms: this.parseStringToArray(formValue.terms),
-      type: formValue.type,
+      description: formValue.description,
     };
-
-    if (formValue.github.length > 0) {
-      formValue.github.includes('https://github.com/')
-        ? (sub.github = formValue.github)
-        : (sub.github = 'https://github.com/' + formValue.github);
-    }
-
-    if (formValue.npm.length > 0) {
-      formValue.npm.includes('https://www.npmjs.com/package/')
-        ? (sub.npm = formValue.npm)
-        : (sub.npm = 'https://www.npmjs.com/package/' + formValue.npm);
-    }
-
-    if (this.ngAddChecked == null) {
-      sub.ngAdd = false;
-    }
-
-    if (this.ngUpdateChecked == null) {
-      sub.ngUpdate = false;
-    }
 
     try {
       // Add resource to database
-      this.resourceService.addResource(sub).then(subId => {
-        this.statusUrl = subId;
-      });
+      // this.resourceService.addResource(sub).then(subId => {
+      //   this.statusUrl = subId;
+      // });
+
+      console.log('Resource created: ', sub);
 
       this.dialogRef = this.dialog.open(this.successPopup, {
         width: '600px',
@@ -98,21 +64,11 @@ export class NewSubmissionComponent {
       });
     }
 
-    if (this.statusUrl) {
-      this.router.navigate(['/submission-status', this.statusUrl]);
-    }
+    this.routeToHome();
   }
 
-  /**
-   * Separates a string into a string array
-   * @param term
-   */
-  parseStringToArray(term: string): string[] {
-    return term.split(',').map((item: string) => item.trim());
-  }
-
-  routeToStatusPage(): void {
-    this.router.navigate(['/submission-status', this.statusUrl]);
+  routeToHome(): void {
+    this.router.navigate(['/']);
     this.dialogRef.close();
   }
 }
