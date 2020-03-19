@@ -7,3 +7,5 @@ package-lock.json
 node_modules/
 
 ./server/.idea/
+
+.idea/
