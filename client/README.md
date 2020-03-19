@@ -1,27 +1,17 @@
-# Resources Search
+# CSearch
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 8.0.1.
+CSearch is a search engine for computer science (CS) projects and labs. Geared towards beginners learning computer science, students supplementing their degree materials, and more experienced programmers who want to learn new skill sets. It is a one-stop-shop for any and all computer science projects to help expand your knowledge and create awesome projects!
 
-## Development server
+## Install & Run
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+To install and run this project, you need to have node installed. Then, run `npm install` to install all dependecies. Then, `ng serve` for a dev server on `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
 
-## Code scaffolding
+## Build and Deploy
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+To expand on this project, refer to the [Angular CLI](https://github.com/angular/angular-cli) on developing Angular apps. Then, run `ng build` and `ng deploy` to your connected host.
 
-## Build
+## Authors
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
-
-## Running unit tests
-
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+Elana Olson - [ellamaolson](https://github.com/ellamaolson)
+Aleksandra (Sasha) Khovina - [sashanity](https://github.com/Sashanity)
+Cuong (Calvin) Nguyen - [calvinqc](https://github.com/calvinqc)
