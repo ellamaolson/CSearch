@@ -8,4 +8,4 @@ node_modules/
 
 ./server/.idea/
 
-.idea/
+./server/target/
