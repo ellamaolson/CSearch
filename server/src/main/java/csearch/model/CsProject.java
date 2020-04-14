@@ -1,26 +1,30 @@
 package csearch.model;
 
+import javax.persistence.*;
+
+@Entity
+@Table(name = "csprojects")
 public class CsProject {
+  @Id
+  @GeneratedValue(strategy = GenerationType.AUTO)
+  private int id;
   private String title;
   private String description;
-  private String procedure;
+  private String process;
   private int difficulty;
-  private String[] links;
 
-  public void CsProject() {
-    this.title = "";
-    this.description = "";
-    this.procedure = "";
-    this.difficulty = 0;
-    this.links = new String[0];
+  public CsProject() {
+    setTitle("");
+    setDescription("");
+    setProcess("");
+    setDifficulty(0);
   }
 
-  public void CsProject(String title, String description, String procedure, int difficulty, String[] links) {
+  public CsProject(String title, String description, String process, int difficulty) {
     setTitle(title);
     setDescription(description);
-    setProcedure(procedure);
+    setProcess(process);
     setDifficulty(difficulty);
-    setLinks(links);
   }
 
   public String getTitle() {
@@ -39,12 +43,12 @@ public class CsProject {
     this.description = description;
   }
 
-  public String getProcedure() {
-    return procedure;
+  public String getProcess() {
+    return process;
   }
 
-  public void setProcedure(String procedure) {
-    this.procedure = procedure;
+  public void setProcess(String process) {
+    this.process = process;
   }
 
   public int getDifficulty() {
@@ -55,16 +59,9 @@ public class CsProject {
     this.difficulty = difficulty;
   }
 
-  public String[] getLinks() {
-    return links;
-  }
-
-  public void setLinks(String[] links) {
-    this.links = links;
-  }
-
+  @Override
   public String toString() {
-    return "Title: " + getTitle() + "\nDescription: " + getDescription() + "\nProcedure: "
-      + getProcedure() + "\nDifficulty: " + getDifficulty() + "\nLinks: " + getLinks().toString();
+    return "Title: " + getTitle() + "\nDescription: " + getDescription() + "\nProcess: "
+      + getProcess() + "\nDifficulty: " + getDifficulty();
   }
 }
