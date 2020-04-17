@@ -4,17 +4,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import csearch.model.CsProject;
-import csearch.repository.RestRepository;
+import csearch.repository.CsRepository;
 
 import java.util.List;
 import java.util.Map;
 
-@org.springframework.web.bind.annotation.RestController
-@RequestMapping("/")
-public class RestController {
+@RestController
+@CrossOrigin(origins = "http://localhost:4200")
+public class CsController {
 
     @Autowired
-    RestRepository repo;
+    CsRepository repo;
 
     @GetMapping
     public String hello() {
