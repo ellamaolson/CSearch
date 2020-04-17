@@ -14,9 +14,11 @@ export class NewSubmissionComponent {
    * for required inputs.
    */
   submissionForm = new FormGroup({
-    name: new FormControl('', [Validators.required]),
+    title: new FormControl('', [Validators.required]),
     category: new FormControl('', [Validators.required]),
     description: new FormControl('', [Validators.required]),
+    process: new FormControl('', [Validators.required]),
+    difficulty: new FormControl('', [Validators.required]),
     links: new FormControl('', [Validators.required]),
   });
 
@@ -45,9 +47,11 @@ export class NewSubmissionComponent {
     const formValue = this.submissionForm.value;
 
     const sub: Resource = {
-      name: formValue.name,
+      title: formValue.title,
       category: formValue.category,
       description: formValue.description,
+      process: formValue.process,
+      difficulty: parseInt(formValue.difficulty, 10),
       links: formValue.links,
     };
 
