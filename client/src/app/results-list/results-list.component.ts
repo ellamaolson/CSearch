@@ -28,7 +28,7 @@ export class ResultsListComponent implements OnInit {
    * containing results from querying the search database
    */
   dataSource: Observable<any>;
-  columnsToDisplay = ['name', 'category'];
+  columnsToDisplay = ['title', 'difficulty'];
   expandedElement: Resource | null;
 
   constructor(private resourceService: ResourcesService, private route: ActivatedRoute) {

@@ -17,11 +17,15 @@
           <div class="table-element-description">
             <b>Description:</b>
             <br />
-            {{ element.description }}
+            <span *ngIf="element.description">{{ element.description }}</span>
+            <br />
+            <b>Process:</b>
+            <br />
+            <span *ngIf="element.process">{{ element.process }}</span>
             <br />
             <br />
             <b>Helpful Resources:</b>
-            <ul>
+            <ul *ngIf="element.links">
               <li *ngFor="let link of element.links">
                 <a href="{{ link }}">{{ link }}</a>
               </li>

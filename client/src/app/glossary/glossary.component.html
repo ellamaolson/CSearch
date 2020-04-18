@@ -2,6 +2,11 @@
 
 <div *ngFor="let resource of allResources | async as resources; index as i">
   <h2 *ngIf="i == 0 || resources[i].category != resources[i - 1].category"><br />{{ resource.category }}</h2>
-  <h4>{{ resource.name }}</h4>
-  <span>{{ resource.description }}</span>
+  <h4 *ngIf="resource.title">{{ resource.title }}</h4>
+  <span *ngIf="resource.description">{{ resource.description }}</span>
+  <span *ngIf="resource.process">{{ resource.process }}</span>
+  <span *ngIf="resource.difficulty">{{ resource.difficulty }}</span>
+  <ul *ngIf="resource.links">
+    <li *ngFor="let link of resource.links">{{ link }}</li>
+  </ul>
 </div>
