@@ -4,6 +4,7 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "csprojects")
+@SecondaryTable(name = "links")
 public class CsProject {
   @Id
   @GeneratedValue(strategy = GenerationType.AUTO)
@@ -12,6 +13,8 @@ public class CsProject {
   private String description;
   private String process;
   private int difficulty;
+  @Column(table = "links")
+  private String links;
 
   public CsProject() {
     setTitle("");
@@ -63,5 +66,17 @@ public class CsProject {
   public String toString() {
     return "Title: " + getTitle() + "\nDescription: " + getDescription() + "\nProcess: "
       + getProcess() + "\nDifficulty: " + getDifficulty();
+  }
+
+  public int getId() {
+    return id;
+  }
+
+  public String getLinks() {
+    return links;
+  }
+
+  public void setLinks(String links) {
+    this.links = links;
   }
 }
