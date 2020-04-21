@@ -1,6 +1,8 @@
 package csearch.model;
 
 import javax.persistence.*;
+import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "csprojects")
@@ -8,13 +10,12 @@ import javax.persistence.*;
 public class CsProject {
   @Id
   @GeneratedValue(strategy = GenerationType.AUTO)
+  @Column(name = "p_id")
   private int id;
   private String title;
   private String description;
   private String process;
   private int difficulty;
-  @Column(table = "links")
-  private String links;
 
   public CsProject() {
     setTitle("");
@@ -72,11 +73,5 @@ public class CsProject {
     return id;
   }
 
-  public String getLinks() {
-    return links;
-  }
 
-  public void setLinks(String links) {
-    this.links = links;
-  }
 }

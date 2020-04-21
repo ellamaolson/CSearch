@@ -1,14 +1,14 @@
 package csearch.controller;
 
+import csearch.model.Link;
+import csearch.repository.LinkRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import csearch.model.CsProject;
 import csearch.repository.CsRepository;
 
-import javax.swing.*;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @RestController
 @CrossOrigin(origins = "http://localhost:4200")
@@ -16,6 +16,8 @@ public class CsController {
 
     @Autowired
     CsRepository repo;
+  @Autowired
+    LinkRepository  linkrepo;
 
     @GetMapping
     public String hello() {
@@ -37,21 +39,21 @@ public class CsController {
 //      return repo.save(new CsProject(title, description, process, difficulty));
 //    }
 
+  // needs to check for duplicates
   @PostMapping("/csproject")
   public String create(@RequestBody Map<String, String> body) {
     String title = body.get("title");
     String description = body.get("description");
     String process = body.get("process");
     int difficulty = Integer.parseInt(body.get("difficulty"));
-//      String[] links = body.get("links").split(" ");
-    String links = body.get("links");
+    String[] links = body.get("links").split(" ");
     CsProject project = new CsProject(title, description, process, difficulty);
-    project.setLinks(links);
     repo.save(project);
+    for (String l: links)
+      linkrepo.save(new Link(l, project.getId()));
+
     return "Project " + project.getTitle() + " created successfully";
   }
-
-
 
     @GetMapping("/all/{id}")
     public   CsProject getProjectById(@PathVariable(value = "id") Integer projectId){
@@ -59,8 +61,9 @@ public class CsController {
       return project;
       }
 
+      // needs to check for duplicates
   @PostMapping("/csproject/{id}")
-    public CsProject update(@PathVariable(value = "id") Integer projectId, @RequestBody Map<String, String> body){
+    public String update(@PathVariable(value = "id") Integer projectId, @RequestBody Map<String, String> body){
       String title = body.get("title");
       String description = body.get("description");
       String process = body.get("process");
@@ -69,9 +72,15 @@ public class CsController {
       if( title != null) project.setTitle(title);
       if( description != null) project.setDescription(description);
       if( process != null) project.setProcess(process);
-      if( difficulty != 0 ) project.setDifficulty(difficulty); // ?
+      if( difficulty != 0 ) project.setDifficulty(difficulty); // ? breaks if the field missing
+      repo.save(project);
+      String[] links = body.get("links").split(" ");
 
-      return repo.save(project);
+      for (String l: links){
+          linkrepo.save(new Link(l, projectId));
+      }
+
+      return "Project " + project.getTitle() + " updated successfully";
     }
 
 
