@@ -41,7 +41,7 @@ public class CsController {
 
   // needs to check for duplicates
   @PostMapping("/csproject")
-  public String create(@RequestBody Map<String, String> body) {
+  public CsProject create(@RequestBody Map<String, String> body) {
     String title = body.get("title");
     String description = body.get("description");
     String process = body.get("process");
@@ -52,7 +52,8 @@ public class CsController {
     for (String l: links)
       linkrepo.save(new Link(l, project.getId()));
 
-    return "Project " + project.getTitle() + " created successfully";
+//    return "Project " + project.getTitle() + " created successfully";
+    return getProjectById(project.getId());
   }
 
     @GetMapping("/all/{id}")
@@ -63,7 +64,7 @@ public class CsController {
 
       // needs to check for duplicates
   @PostMapping("/csproject/{id}")
-    public String update(@PathVariable(value = "id") Integer projectId, @RequestBody Map<String, String> body){
+    public CsProject update(@PathVariable(value = "id") Integer projectId, @RequestBody Map<String, String> body){
       String title = body.get("title");
       String description = body.get("description");
       String process = body.get("process");
@@ -80,7 +81,8 @@ public class CsController {
           linkrepo.save(new Link(l, projectId));
       }
 
-      return "Project " + project.getTitle() + " updated successfully";
+//      return "Project " + project.getTitle() + " updated successfully";
+    return getProjectById(projectId);
     }
 
 
