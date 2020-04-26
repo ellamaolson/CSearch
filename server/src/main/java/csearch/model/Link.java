@@ -9,11 +9,11 @@ public class Link {
   @GeneratedValue(strategy = GenerationType.AUTO)
   private int id;
   private String link;
-  private int p_id; // project id to which the link relates to
+  private int pid; // project id to which the link relates to
 
-  public Link(String link, int p_id) {
+  public Link(String link, int pid) {
     this.link = link;
-    this.p_id = p_id;
+    this.pid = pid;
   }
 
   public int getId() {

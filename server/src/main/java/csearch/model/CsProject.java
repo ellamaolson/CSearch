@@ -7,7 +7,7 @@ import javax.persistence.*;
 public class CsProject {
   @Id
   @GeneratedValue(strategy = GenerationType.AUTO)
-  @Column(name = "p_id")
+  @Column(name = "pid")
   private int id;
   private String title;
   private String description;
@@ -23,14 +23,14 @@ public class CsProject {
 
   public CsProject(String title, String description, String process, int difficulty) {
     if (title != null && !title.isEmpty()) this.title = title;
-    else setDefault("title");
+    else setTitle("No Title");
     if (description != null) this.description = description;
-    else setDefault("description");
+    else setDescription("");
     if (process != null) this.process = process;
-    else setDefault("process");
+    else setProcess("");
     this.process = process;
     if (difficulty >= 1 && difficulty <= 5) this.difficulty = difficulty;
-    else setDefault("difficulty");
+    else setDifficulty(0);
   }
 
   public String getTitle() {
@@ -75,20 +75,5 @@ public class CsProject {
     return id;
   }
 
-  public void setDefault(String name) {
-    switch (name) {
-      case "title":
-        this.title = "No title";
-        break;
-      case "description":
-        this.description = "";
-        break;
-      case "process":
-        this.process = "";
-        break;
-      case "difficulty":
-        this.difficulty = 1;
-        break;
-    }
-  }
+
 }
