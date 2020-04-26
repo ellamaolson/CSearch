@@ -52,6 +52,11 @@ public class CsController {
    * @param body
    * @return CsProject
    */
+    @GetMapping
+    public String hello() {
+        return "Hello CSearch Dev Team With origin * with new update";
+    }
+
   @PostMapping("/csproject")
   public CsProject create(@RequestBody Map<String, String> body) {
     String title = body.get("title");

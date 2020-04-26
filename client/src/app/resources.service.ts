@@ -28,7 +28,7 @@ export interface Link {
   providedIn: 'root',
 })
 export class ResourcesService {
-  uri = 'http://localhost:8080';
+  uri = 'http://ec2-34-201-5-29.compute-1.amazonaws.com';
   resourceCollection: Observable<Resource[]>;
 
   constructor(private http: HttpClient) {}

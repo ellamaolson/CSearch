@@ -1,12 +1,11 @@
-package-lock.json
+*/package-lock.json
 
-.DS_Store
+*/.DS_Store
 
-.vscode/
+*/.vscode/
 
-node_modules/
+*/node_modules/
 
-.idea
-*/.idea/
+*/.idea
 
-./server/target/
+*/target/

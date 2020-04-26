@@ -13,12 +13,15 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
+            "aot": true,
             "outputPath": "dist",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
             "tsConfig": "tsconfig.app.json",
-            "assets": ["src/assets"],
+            "assets": [
+              "src/assets"
+            ],
             "styles": [
               "src/styles.css",
               "./node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
@@ -42,6 +45,10 @@
                   "type": "initial",
                   "maximumWarning": "2mb",
                   "maximumError": "5mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "6kb"
                 }
               ]
             }
@@ -71,16 +78,27 @@
             "polyfills": "src/polyfills.ts",
             "tsConfig": "tsconfig.spec.json",
             "karmaConfig": "karma.conf.js",
-            "assets": ["src/assets"],
-            "styles": ["./node_modules/@angular/material/prebuilt-themes/indigo-pink.css", "src/styles.css"],
+            "assets": [
+              "src/assets"
+            ],
+            "styles": [
+              "./node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
+              "src/styles.css"
+            ],
             "scripts": []
           }
         },
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
-            "tsConfig": ["tsconfig.app.json", "tsconfig.spec.json", "e2e/tsconfig.json"],
-            "exclude": ["**/node_modules/**"]
+            "tsConfig": [
+              "tsconfig.app.json",
+              "tsconfig.spec.json",
+              "e2e/tsconfig.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
           }
         },
         "e2e": {
@@ -98,5 +116,8 @@
       }
     }
   },
-  "defaultProject": "ngEcosystem"
+  "defaultProject": "ngEcosystem",
+  "cli": {
+    "analytics": false
+  }
 }
