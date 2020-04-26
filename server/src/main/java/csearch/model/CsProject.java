@@ -1,12 +1,9 @@
 package csearch.model;
 
 import javax.persistence.*;
-import java.util.List;
-import java.util.Set;
 
 @Entity
 @Table(name = "csprojects")
-@SecondaryTable(name = "links")
 public class CsProject {
   @Id
   @GeneratedValue(strategy = GenerationType.AUTO)
@@ -25,10 +22,15 @@ public class CsProject {
   }
 
   public CsProject(String title, String description, String process, int difficulty) {
-    setTitle(title);
-    setDescription(description);
-    setProcess(process);
-    setDifficulty(difficulty);
+    if (title != null && !title.isEmpty()) this.title = title;
+    else setDefault("title");
+    if (description != null) this.description = description;
+    else setDefault("description");
+    if (process != null) this.process = process;
+    else setDefault("process");
+    this.process = process;
+    if (difficulty >= 1 && difficulty <= 5) this.difficulty = difficulty;
+    else setDefault("difficulty");
   }
 
   public String getTitle() {
@@ -73,5 +75,20 @@ public class CsProject {
     return id;
   }
 
-
+  public void setDefault(String name) {
+    switch (name) {
+      case "title":
+        this.title = "No title";
+        break;
+      case "description":
+        this.description = "";
+        break;
+      case "process":
+        this.process = "";
+        break;
+      case "difficulty":
+        this.difficulty = 1;
+        break;
+    }
+  }
 }

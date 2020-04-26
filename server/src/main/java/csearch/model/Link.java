@@ -3,26 +3,22 @@ package csearch.model;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "linkstable")
+@Table(name = "links")
 public class Link {
-
   @Id
   @GeneratedValue(strategy = GenerationType.AUTO)
   private int id;
   private String link;
-
-  private int p_id;
+  private int p_id; // project id to which the link relates to
 
   public Link(String link, int p_id) {
     this.link = link;
-    this.p_id =p_id;
-
+    this.p_id = p_id;
   }
 
   public int getId() {
     return id;
   }
-
 
   public void setId(int id) {
     this.id = id;
