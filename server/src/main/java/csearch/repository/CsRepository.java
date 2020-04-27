@@ -7,9 +7,10 @@ import org.springframework.data.jpa.repository.Query;
 import csearch.model.CsProject;
 import org.springframework.stereotype.Repository;
 
-@Repository
+@Repository("csrepo")
 public interface CsRepository extends CrudRepository<CsProject, Integer>{
 
-    @Query("SELECT cs FROM csprojects cs WHERE cs.title LIKE '%:searchTerm%' OR cs.description LIKE '%:searchTerm%' OR cs.process LIKE '%:searchTerm%'")
+    @Query(value = "SELECT cs FROM csprojects cs WHERE cs.title LIKE '%:searchTerm%' OR cs.description LIKE " +
+      "'%:searchTerm%' OR cs.process LIKE '%:searchTerm%'", nativeQuery = true)
     List<CsProject> findProjectMatchingSearchTerm(String searchTerm);
 }

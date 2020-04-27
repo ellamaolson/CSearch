@@ -4,20 +4,21 @@ import csearch.model.CsProject;
 import csearch.repository.CsRepository;
 import csearch.service.CsService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Map;
 
-@Controller
+@RestController
 @CrossOrigin(origins = "http://localhost:4200")
 public class CsController {
-    private CsService csService;
+    private final CsRepository csService;
 
     @Autowired
-    public CsController(CsService css) {
-      this.csService = css;
+    public CsController(@Qualifier("csrepo") CsRepository repo) {
+      this.csService = repo;
     }
 
 //    @Autowired
