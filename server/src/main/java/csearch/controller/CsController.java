@@ -2,7 +2,6 @@ package csearch.controller;
 
 import csearch.model.CsProject;
 import csearch.repository.CsRepository;
-import csearch.service.CsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
@@ -14,15 +13,12 @@ import java.util.Map;
 @RestController
 @CrossOrigin(origins = "http://localhost:4200")
 public class CsController {
-    private final CsRepository csService;
+    private final CsRepository csRepo;
 
     @Autowired
     public CsController(@Qualifier("csrepo") CsRepository repo) {
-      this.csService = repo;
+      this.csRepo = repo;
     }
-
-//    @Autowired
-//    private CsRepository repo;
 
     @GetMapping
     public String hello() {
@@ -31,12 +27,12 @@ public class CsController {
 
     @GetMapping("/all")
     public List<CsProject> index() {
-      return (List<CsProject>) this.csService.findAll();
+      return (List<CsProject>) this.csRepo.findAll();
     }
 
     @GetMapping("/search/{searchTerm}")
     public List<CsProject> search(@PathVariable(value = "searchTerm") String searchTerm) {
-      return (List<CsProject>) this.csService.findProjectMatchingSearchTerm(searchTerm);
+      return (List<CsProject>) this.csRepo.findProjectMatchingSearchTerm(searchTerm);
     }
 
     @PostMapping("/csproject")
@@ -46,6 +42,6 @@ public class CsController {
       String process = body.get("process");
       int difficulty = Integer.parseInt(body.get("difficulty"));
 //      String[] links = body.get("links").split(" ");
-      return this.csService.save(new CsProject(title, description, process, difficulty));
+      return this.csRepo.save(new CsProject(title, description, process, difficulty));
     }
 }
