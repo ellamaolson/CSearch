@@ -18,12 +18,8 @@ public class CsController {
   private final LinkRepository lrepo;
 
   @Autowired
-  public CsController(@Qualifier("csrepo") CsRepository repo) {
+  public CsController(@Qualifier("csrepo") CsRepository repo, @Qualifier("lrepo") LinkRepository linkrepo) {
     this.csRepo = repo;
-  }
-
-  @Autowired
-  public CsController(@Qualifier("lrepo") LinkRepository linkrepo){
     this.lrepo = linkrepo;
   }
 
@@ -61,6 +57,11 @@ public class CsController {
   public CsProject getProjectById(@PathVariable(value = "id") Integer projectId) {
     CsProject project = this.csRepo.findById((projectId)).get();
     return project;
+  }
+
+  @GetMapping("/search/{searchTerm}")
+  public List<CsProject> search(@PathVariable(value = "searchTerm") String searchTerm) {
+    return (List<CsProject>) this.csRepo.findProjectMatchingSearchTerm(searchTerm);
   }
 
   @GetMapping("/links")
