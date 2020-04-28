@@ -12,7 +12,7 @@ import csearch.repository.CsRepository;
 import java.util.*;
 
 @RestController
-@CrossOrigin(origins = "http://localhost:4200")
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 public class CsController {
 
   @Autowired
