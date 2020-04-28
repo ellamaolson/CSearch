@@ -7,6 +7,7 @@ import javax.persistence.*;
 public class CsProject {
   @Id
   @GeneratedValue(strategy = GenerationType.AUTO)
+  @Column(name = "pid")
   private int id;
   private String title;
   private String description;
@@ -21,10 +22,15 @@ public class CsProject {
   }
 
   public CsProject(String title, String description, String process, int difficulty) {
-    setTitle(title);
-    setDescription(description);
-    setProcess(process);
-    setDifficulty(difficulty);
+    if (title != null && !title.isEmpty()) this.title = title;
+    else setTitle("No Title");
+    if (description != null) this.description = description;
+    else setDescription("");
+    if (process != null) this.process = process;
+    else setProcess("");
+    this.process = process;
+    if (difficulty >= 1 && difficulty <= 5) this.difficulty = difficulty;
+    else setDifficulty(0);
   }
 
   public String getTitle() {
@@ -64,4 +70,10 @@ public class CsProject {
     return "Title: " + getTitle() + "\nDescription: " + getDescription() + "\nProcess: "
       + getProcess() + "\nDifficulty: " + getDifficulty();
   }
+
+  public int getId() {
+    return id;
+  }
+
+
 }
