@@ -26,6 +26,10 @@ public class CsProject {
     setProcess(process);
     setDifficulty(difficulty);
   }
+  
+  public int getId() { return id; }
+
+  public void setId() { this.id = id; }
 
   public String getTitle() {
     return title;
