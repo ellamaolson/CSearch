@@ -22,23 +22,23 @@ public class CsProject {
   }
 
   public CsProject(String title, String description, String process, int difficulty) {
-    if (title != null && !title.isEmpty()) this.title = title;
-    else setTitle("No Title");
-    if (description != null) this.description = description;
-    else setDescription("");
-    if (process != null) this.process = process;
-    else setProcess("");
-    this.process = process;
-    if (difficulty >= 1 && difficulty <= 5) this.difficulty = difficulty;
-    else setDifficulty(0);
+    setTitle(title);
+    setDescription(description);
+    setProcess(process);
+    setDifficulty(difficulty);    
   }
+
+  public int getId() { return id; }
+
+  public void setId() { this.id = id; }
 
   public String getTitle() {
     return title;
   }
 
   public void setTitle(String title) {
-    this.title = title;
+    if (title != null && !title.isEmpty()) this.title = title;
+    else this.title = "No Title";
   }
 
   public String getDescription() {
@@ -46,7 +46,8 @@ public class CsProject {
   }
 
   public void setDescription(String description) {
-    this.description = description;
+    if (description != null) this.description = description;
+    else this.description = "";
   }
 
   public String getProcess() {
@@ -54,7 +55,8 @@ public class CsProject {
   }
 
   public void setProcess(String process) {
-    this.process = process;
+    if (process != null) this.process = process;
+    else this.process = "";
   }
 
   public int getDifficulty() {
@@ -62,7 +64,8 @@ public class CsProject {
   }
 
   public void setDifficulty(int difficulty) {
-    this.difficulty = difficulty;
+    if (difficulty >= 1 && difficulty <= 5) this.difficulty = difficulty;
+    else this.difficulty = 0;
   }
 
   @Override
@@ -70,10 +73,4 @@ public class CsProject {
     return "Title: " + getTitle() + "\nDescription: " + getDescription() + "\nProcess: "
       + getProcess() + "\nDifficulty: " + getDifficulty();
   }
-
-  public int getId() {
-    return id;
-  }
-
-
 }
