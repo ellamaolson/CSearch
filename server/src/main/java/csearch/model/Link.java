@@ -15,7 +15,10 @@ public class Link {
     this.link = link;
     this.pid = pid;
   }
-
+public Link(){
+    this.link = "";
+    this.pid = 0;
+}
   public int getId() {
     return id;
   }
@@ -32,5 +35,12 @@ public class Link {
     this.link = link;
   }
 
+  public int getPid() {
+    return pid;
+  }
 
+  @Override
+  public String toString() {
+    return "link:" + getLink()+"\npid: "+getPid();
+  }
 }

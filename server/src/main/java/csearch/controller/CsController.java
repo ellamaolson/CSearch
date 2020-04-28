@@ -3,6 +3,7 @@ package csearch.controller;
 import csearch.model.Link;
 import csearch.repository.LinkRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.*;
 
 import csearch.model.CsProject;
@@ -16,15 +17,19 @@ public class CsController {
 
   @Autowired
   CsRepository repo;
+
+  private final LinkRepository lrepo;
   @Autowired
-  LinkRepository linkrepo;
+  public CsController(@Qualifier("lrepo") LinkRepository linkrepo){
+    this.lrepo = linkrepo;
+  }
 
   @GetMapping("/all")
   public List<CsProject> index() {
     return (List<CsProject>) repo.findAll();
   }
 
-  // needs to check for duplicates
+
   @PostMapping("/csproject")
   public CsProject create(@RequestBody Map<String, String> body) {
     String title = body.get("title");
@@ -41,7 +46,7 @@ public class CsController {
     if (linksString != null) {
       String[] links = linksString.split(" ");
       for (String link : links) {
-        linkrepo.save(new Link(link, project.getId()));
+        this.lrepo.save(new Link(link, project.getId()));
       }
     }
     return getProjectById(project.getId());
@@ -53,7 +58,6 @@ public class CsController {
     return project;
   }
 
-  // needs to check for duplicates
   @PutMapping("/csproject/{id}")
   public CsProject update(@PathVariable(value = "id") Integer projectId, @RequestBody Map<String, String> body) {
     String title = body.get("title");
@@ -73,9 +77,18 @@ public class CsController {
     if (linksString != null) {
       String[] links = linksString.split(" ");
       for (String link : links) {
-        linkrepo.save(new Link(link, projectId));
+        this.lrepo.save(new Link(link, projectId));
       }
     }
     return getProjectById(projectId);
+  }
+
+  @GetMapping("/links")
+  public List<Link> getLinks(){return (List<Link>) this.lrepo.findAll();  }
+
+  @GetMapping("/links/{pid}")
+  public List<Link> getProjectLinks(@PathVariable(value = "pid") Integer pid){
+    System.out.println(pid);
+    return (List<Link>) this.lrepo.findByPid(pid);
   }
 }
