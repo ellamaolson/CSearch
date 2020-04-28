@@ -10,7 +10,7 @@ import org.springframework.stereotype.Repository;
 @Repository("csrepo")
 public interface CsRepository extends CrudRepository<CsProject, Integer>{
 
-    @Query(value = "SELECT cs FROM csprojects cs WHERE cs.title LIKE '%:searchTerm%' OR cs.description LIKE " +
-      "'%:searchTerm%' OR cs.process LIKE '%:searchTerm%'", nativeQuery = true)
+    @Query(value = "SELECT id, title, description, process, difficulty FROM csprojects cs WHERE cs.title LIKE " +
+      "%:searchTerm% OR cs.description LIKE %:searchTerm% OR cs.process LIKE %:searchTerm%", nativeQuery = true)
     List<CsProject> findProjectMatchingSearchTerm(String searchTerm);
 }
