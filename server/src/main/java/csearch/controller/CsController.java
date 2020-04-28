@@ -65,10 +65,12 @@ public class CsController {
   }
 
   @GetMapping("/links")
-  public List<Link> getLinks(){return (List<Link>) this.lrepo.findAll();  }
+  public List<Link> getLinks() {
+    return (List<Link>) this.lrepo.findAll();
+  }
 
   @GetMapping("/links/{pid}")
-  public List<Link> getProjectLinks(@PathVariable(value = "pid") Integer pid){
+  public List<Link> getProjectLinks(@PathVariable(value = "pid") Integer pid) {
     System.out.println(pid);
     return (List<Link>) this.lrepo.findByPid(pid);
   }
@@ -83,15 +85,19 @@ public class CsController {
 
     CsProject project = this.csRepo.findById(projectId).get();
 
-    if (title != null && !title.isEmpty()) project.setTitle(title);
-    if (description != null) project.setDescription(description);
-    if (process != null) project.setProcess(process);
+    if (title != null && !title.isEmpty())
+      project.setTitle(title);
+    if (description != null)
+      project.setDescription(description);
+    if (process != null)
+      project.setProcess(process);
     if (difficultyString != null) {
       int difficulty = Integer.parseInt(difficultyString);
-      if (difficulty >= 1 && difficulty <= 5) project.setDifficulty(difficulty);
+      if (difficulty >= 1 && difficulty <= 5)
+        project.setDifficulty(difficulty);
     }
     this.csRepo.save(project);
-    
+
     if (linksString != null) {
       String[] links = linksString.split(" ");
       for (String link : links) {
