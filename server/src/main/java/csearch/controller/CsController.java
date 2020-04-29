@@ -2,6 +2,7 @@ package csearch.controller;
 
 import csearch.model.Link;
 import csearch.repository.LinkRepository;
+import javafx.util.Pair;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.*;
@@ -74,6 +75,15 @@ public class CsController {
     System.out.println(pid);
     return (List<Link>) this.lrepo.findByPid(pid);
   }
+
+  @GetMapping("/about/{id}")
+  public Pair<CsProject, List<Link>> getAllAboutProject(@PathVariable(value = "id") Integer pid){
+    CsProject project = getProjectById(pid);
+    List<Link> links = getProjectLinks(pid);
+//    Pair<CsProject,List<Link>> pair = new Pair<CsProject,List<Link>> (project,links);
+    return new Pair<CsProject,List<Link>> (project,links);
+  }
+
 
   @PutMapping("/csproject/{id}")
   public CsProject update(@PathVariable(value = "id") Integer projectId, @RequestBody Map<String, String> body) {
