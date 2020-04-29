@@ -3,6 +3,7 @@ import { Observable, from, of } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 export interface Resource {
+  pid?: number;
   title: string;
   category?: string;
   description: string;
@@ -46,5 +47,9 @@ export class ResourcesService {
    */
   searchForResources(searchTerm: string): Observable<Resource[]> {
     return this.http.get<Resource[]>(`${this.uri}/search/` + searchTerm, this.getHttpHeaders());
+  }
+
+  createResource(resource: Resource): Observable<Resource> {
+    return this.http.post<Resource>(`${this.uri}/csproject`, resource);
   }
 }

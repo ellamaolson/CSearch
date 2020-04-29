@@ -6,24 +6,18 @@
   <mat-card-content>
     <form [formGroup]="submissionForm" (ngSubmit)="onSubmit()">
       <table>
-        <br />
-
-        <!-- name and type forms -->
         <tr>
           <td>
             <mat-form-field class="full-width">
-              <input formControlName="title" matInput placeholder="Tool name" autocomplete="off" />
+              <input formControlName="title" matInput placeholder="Title" autocomplete="off" />
             </mat-form-field>
           </td>
-          <td>
+          <td colspan="2">
             <mat-form-field class="full-width">
-              <input formControlName="category" matInput placeholder="Category" autocomplete="off" />
+              <input formControlName="difficulty" matInput placeholder="Difficulty 1-5(hard)" autocomplete="off" />
             </mat-form-field>
           </td>
         </tr>
-        <br />
-
-        <!-- description form -->
         <tr>
           <td colspan="2">
             <mat-form-field class="full-width">
@@ -31,55 +25,26 @@
             </mat-form-field>
           </td>
         </tr>
-        <br />
-
-        <!-- process form -->
         <tr>
-          <td colspan="2">
+          <td colspan="4">
             <mat-form-field class="full-width">
               <input formControlName="process" matInput placeholder="Procedure" autocomplete="off" />
             </mat-form-field>
           </td>
         </tr>
-        <br />
-
-        <!-- Difficult and links form -->
         <tr>
-          <td colspan="2">
-            <mat-form-field class="full-width">
-              <input formControlName="difficulty" matInput placeholder="Difficulty" autocomplete="off" />
-            </mat-form-field>
-          </td>
           <td colspan="2">
             <mat-form-field class="full-width">
               <input formControlName="links" matInput placeholder="Links" autocomplete="off" />
             </mat-form-field>
           </td>
         </tr>
-        <br />
-
         <tr>
           <td colspan="2" class="full-width" style="padding-inline-start: 10px;">
-            <button type="submit" (click)="onSubmit()" style="text-align: center;">Submit</button>
+            <button (click)="onSubmit()" style="text-align: center;">Submit</button>
           </td>
         </tr>
       </table>
     </form>
   </mat-card-content>
 </mat-card>
-
-<ng-template #successPopup>
-  <h2>Your submission has been successfully submitted for review!</h2>
-  <p>We will be reviewing your submission shortly.</p>
-  <p>Thank you for your help in improving our search results and recommendations!</p>
-  <p>
-    <b>
-      <a (click)="routeToHome()">Home</a>
-    </b>
-  </p>
-</ng-template>
-
-<ng-template #failurePopup>
-  <h2>Unfortunately, your submission cannot be submitted for review.</h2>
-  <p>Please make sure all fields are filled out.</p>
-</ng-template>

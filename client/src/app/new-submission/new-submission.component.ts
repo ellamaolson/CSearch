@@ -1,7 +1,6 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { MatDialog } from '@angular/material/dialog';
 import { ResourcesService, Resource } from '../resources.service';
 
 @Component({
@@ -15,25 +14,13 @@ export class NewSubmissionComponent {
    */
   submissionForm = new FormGroup({
     title: new FormControl('', [Validators.required]),
-    category: new FormControl('', [Validators.required]),
     description: new FormControl('', [Validators.required]),
     process: new FormControl('', [Validators.required]),
-    difficulty: new FormControl('', [Validators.required]),
+    difficulty: new FormControl('', [Validators.required, Validators.min(1), Validators.max(5)]),
     links: new FormControl('', [Validators.required]),
   });
 
-  /**
-   * ng-add and ng-update checkbox values
-   */
-  ngAddChecked: false;
-  ngUpdateChecked: false;
-
-  @ViewChild('successPopup', { static: false }) successPopup;
-  @ViewChild('failurePopup', { static: false }) failurePopup;
-  dialogRef;
-  statusUrl: string;
-
-  constructor(private router: Router, public dialog: MatDialog) {}
+  constructor(private router: Router, private resourceService: ResourcesService) {}
 
   /**
    * Validate input, create a new submission, add it to the database, and notify of success.
@@ -48,35 +35,23 @@ export class NewSubmissionComponent {
 
     const sub: Resource = {
       title: formValue.title,
-      category: formValue.category,
       description: formValue.description,
       process: formValue.process,
-      difficulty: parseInt(formValue.difficulty, 10),
+      difficulty: Number(formValue.difficulty),
       links: formValue.links,
     };
 
     try {
-      // Add resource to database
-      // this.resourceService.addResource(sub).then(subId => {
-      //   this.statusUrl = subId;
-      // });
-
-      console.log('Resource created: ', sub);
-
-      this.dialogRef = this.dialog.open(this.successPopup, {
-        width: '600px',
-      });
-    } catch (error) {
-      this.dialogRef = this.dialog.open(this.failurePopup, {
-        width: '600px',
-      });
+      this.resourceService.createResource(sub).subscribe();
+    } catch (err) {
+      alert('Looks like there was an error with the submission.');
     }
 
+    alert('Thank you for your submission.');
     this.routeToHome();
   }
 
   routeToHome(): void {
     this.router.navigate(['/']);
-    this.dialogRef.close();
   }
 }
