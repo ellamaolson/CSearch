@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { ResourcesService } from '../resources.service';
 
 @Component({
   selector: 'app-search-bar',
@@ -11,7 +12,7 @@ export class SearchBarComponent {
     searchTerm: new FormControl('', [Validators.required]),
   });
 
-  constructor(private router: Router) {}
+  constructor(private router: Router, private resourceService: ResourcesService) {}
 
   /**
    * Sends the search term to results page for querying and resets the searchForm.
@@ -21,6 +22,7 @@ export class SearchBarComponent {
       alert('Please enter in a search.');
       return;
     }
+
     this.router.navigate(['/results', this.searchForm.value.searchTerm]);
     this.searchForm.reset();
   }
