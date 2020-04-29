@@ -31,19 +31,13 @@ export class ResultsListComponent implements OnInit {
   columnsToDisplay = ['title', 'difficulty'];
   expandedElement: Resource | null;
 
-  constructor(private resourceService: ResourcesService, private route: ActivatedRoute) {
-    this.dataSource = this.resourceService.getResources();
-    // this.dataSource.subscribe(result => {
-    //   console.log('Resources ', result);
-    // });
-  }
+  constructor(private resourceService: ResourcesService, private route: ActivatedRoute) {}
 
+  /**
+   * On init, queries for the passed in search term and sets the data source
+   */
   ngOnInit() {
     this.searchTerm = this.route.snapshot.paramMap.get('searchTerm');
-    console.log('THE SEARCH TERM IS: ', this.searchTerm);
-    if (this.searchTerm !== null) {
-      // call a search method, but for now just display all
-      this.dataSource = this.resourceService.getResources();
-    }
+    this.dataSource = this.resourceService.searchForResources(this.searchTerm);
   }
 }
