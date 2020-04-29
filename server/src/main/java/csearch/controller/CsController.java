@@ -80,10 +80,8 @@ public class CsController {
   public Pair<CsProject, List<Link>> getAllAboutProject(@PathVariable(value = "id") Integer pid){
     CsProject project = getProjectById(pid);
     List<Link> links = getProjectLinks(pid);
-//    Pair<CsProject,List<Link>> pair = new Pair<CsProject,List<Link>> (project,links);
     return new Pair<CsProject,List<Link>> (project,links);
   }
-
 
   @PutMapping("/csproject/{id}")
   public CsProject update(@PathVariable(value = "id") Integer projectId, @RequestBody Map<String, String> body) {
