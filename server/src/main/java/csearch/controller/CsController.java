@@ -24,6 +24,34 @@ public class CsController {
     this.lrepo = linkrepo;
   }
 
+  /**
+   * Creates a Pair from a CsProject and associated list of Links
+   * @param project
+   * @return
+   */
+  private Pair createAPair(CsProject project) {
+    List<Link> links = getProjectLinks(project.getId());
+    return new Pair<CsProject,List<Link>> (project, links);
+  }
+
+  /**
+   * Creates a list of Pairs
+   * @param projects
+   * @return
+   */
+  private List<Pair> createAPairList(List<CsProject> projects) {
+    List<Pair> pairs = new ArrayList<Pair>();
+    for(CsProject project: projects) {
+      pairs.add(createAPair(project));
+    }
+    return pairs;
+  }
+
+  /**
+   * Creates a new CsProject and associated Links
+   * @param body
+   * @return CsProject
+   */
   @PostMapping("/csproject")
   public CsProject create(@RequestBody Map<String, String> body) {
     String title = body.get("title");
@@ -49,9 +77,13 @@ public class CsController {
     return getProjectById(project.getId());
   }
 
+  /**
+   * Get all projects in the database
+   * @return
+   */
   @GetMapping("/all")
-  public List<CsProject> index() {
-    return (List<CsProject>) this.csRepo.findAll();
+  public List<Pair> index() {
+    return createAPairList((List<CsProject>) this.csRepo.findAll());
   }
 
   @GetMapping("/all/{id}")
@@ -60,9 +92,14 @@ public class CsController {
     return project;
   }
 
+  /**
+   * Search for projects based on a search term
+   * @param searchTerm
+   * @return List of Pairs of projects
+   */
   @GetMapping("/search/{searchTerm}")
-  public List<CsProject> search(@PathVariable(value = "searchTerm") String searchTerm) {
-    return (List<CsProject>) this.csRepo.findProjectMatchingSearchTerm(searchTerm);
+  public List<Pair> search(@PathVariable(value = "searchTerm") String searchTerm) {
+    return createAPairList(this.csRepo.findProjectMatchingSearchTerm(searchTerm));
   }
 
   @GetMapping("/links")
