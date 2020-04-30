@@ -10,11 +10,6 @@ To install and run this project, you need to have node installed. Then, run `npm
 
 To expand on this project, refer to the [Angular CLI](https://github.com/angular/angular-cli) on developing Angular apps. Then, run `ng build` and `ng deploy` to your connected host.
 
-```sh
-$ npm i
-$ npm run build
-```
-
 ## Authors
 
 Elana Olson - [ellamaolson](https://github.com/ellamaolson)
