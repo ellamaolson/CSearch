@@ -77,10 +77,10 @@ public class CsController {
   }
 
   @GetMapping("/about/{id}")
-  public Pair<CsProject, List<Link>> getAllAboutProject(@PathVariable(value = "id") Integer pid){
+  public Pair<CsProject, List<Link>> getAllAboutProject(@PathVariable(value = "id") Integer pid) {
     CsProject project = getProjectById(pid);
     List<Link> links = getProjectLinks(pid);
-    return new Pair<CsProject,List<Link>> (project,links);
+    return new Pair<CsProject, List<Link>>(project, links);
   }
 
   @PutMapping("/csproject/{id}")
@@ -93,12 +93,9 @@ public class CsController {
 
     CsProject project = this.csRepo.findById(projectId).get();
 
-    if (title != null && !title.isEmpty())
-      project.setTitle(title);
-    if (description != null)
-      project.setDescription(description);
-    if (process != null)
-      project.setProcess(process);
+    project.setTitle(title);
+    project.setDescription(description);
+    project.setProcess(process);
     if (difficultyString != null) {
       int difficulty = Integer.parseInt(difficultyString);
       if (difficulty >= 1 && difficulty <= 5)
