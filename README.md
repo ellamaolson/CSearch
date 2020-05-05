@@ -1,65 +1,308 @@
-# CSearch
+<h1 align="center">CSearch</h1>
+<h3 align="center">
+  San Jose State University - Enterprise Software - CMPE 172/Spring 2020
+</h3>
 
-### San Jose State University, Enterprise Software - CMPE 172/Spring 2020
+<div align="center">
+A search engine for software and computer science projects. Learn how to code, refresh on previous learned topics, and challenge yourself to continue learning new skills. It is a one-stop-shop for any and all computer science projects to help expand your knowledge and create awesome projects! </br></br>
 
-## Team Members
+<a href="https://github.com/ellamaolson/CSearch/pulls">
+    <img src="https://img.shields.io/badge/PRs-welcome-green.svg" alt="PRs Welcome" />
+</a>
+<img alt="GitHub language count" src="https://img.shields.io/github/languages/count/ellamaolson/CSearch">
+<a href="https://www.javascript.com/">
+    <img src="https://img.shields.io/github/languages/top/ellamaolson/CSearch" alt="Top Language" />
+</a>
+<img alt="GitHub contributors" src="https://img.shields.io/github/contributors-anon/ellamaolson/CSearch">
+</div>
 
-- [Aleksandra Kovina](https://github.com/Sashanity)
-- [Cuong Nguyen](https://github.com/calvinqc)
-- [Elana Olson](https://github.com/ellamaolson)
+# 🌟 Features
 
-## Description
+- Search for a CS projects using any keywords
+- Create a CS Project
+- Read more detail about a project
+- See all existing projects
 
-CSearch is a search engine for software and computer science projects. Learn how to code, resfresh on previous learned topics, and challenge yourself to continue learning new skills. It is a one-stop-shop for any and all computer science projects to help expand your knowledge and create awesome projects!
+# ✅ Getting Started
 
-## Setup Environment
+## 📍 Requirement
 
-To install and run this project, you need to have Node.js, an NPM package manager, Angular CLI, Java, and Maven package manager installed.
+What things you need to install the software and how to install them
 
-- Check if you already have Node.js installed with `node -v`. To install Node.js and npm, go to [nodejs.org](https://nodejs.org/)
-- To install the [Angular CLI](https://github.com/angular/angular-cli), run `npm install -g @angular/cli`
-- Check if you already have Java and Maven installed with `java -version` and `mvn -version`. To install Java and/or Maven, go to [maven install](https://www.baeldung.com/install-maven-on-windows-linux-mac).
-- Clone project `git clone https://github.com/ellamaolson/CSearch.git`
-- Install [MySQL](https://dev.mysql.com/doc/refman/8.0/en/installing.html) if creating a local database for building locally.
+- [Java](https://java.com/en/download/help/download_options.xml)
+- [Node.js](https://nodejs.org/en/) / [npm registry](https://www.npmjs.com/)
+- [Angular CLI](https://github.com/angular/angular-cli)
+- [VSCode](https://code.visualstudio.com/) OR ...any text editor you like.
+- [IntelliJ](https://www.jetbrains.com/idea/)
+- [Postman](https://www.getpostman.com/): Use for testing APIs without using the frontend
+- [AWS CLI](https://aws.amazon.com/cli/)
+- [Docker](https://www.docker.com/)
+- [Maven](http://maven.apache.org/install.html)
+- [MySQL](https://dev.mysql.com/doc/refman/8.0/en/installing.html).
 
-  - Create a file called **application.properties** in **/resources** folder in the server. Input the following code, then change `<database-name>` to your database and add your local MySQL username and password.
+## ⚒️ Installation
 
-  ```java
-  spring.datasource.url=jdbc:mysql://localhost:3306/<database-name>?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC
+```sh
+# Clone this repository
+$ git clone https://github.com/ellamaolson/CSearch.git
+```
 
-  spring.datasource.username=
+## 💻 Client Start-up
 
-  spring.datasource.password=
+The frontend (client) is an Angular application that is run using the Angular CLI.
 
-  spring.datasource.driver-class-name=com.mysql.cj.jdbc.Driver
+```sh
+# Install Angular CLI
+$ npm install -g @angular/cli
 
-  spring.jpa.show-sql=true
+# Install dependencies
+$ cd client && npm i
 
-  spring.jpa.database-platform=org.hibernate.dialect.MySQL5Dialect
+# Start client on localhost:4200
+$ npm start
+```
 
-  spring.jpa.hibernate.ddl-auto=update
-  ```
+## ⌨️ Server + Database Start-up
 
-## Build locally
+The backend (server) is a Java SpringBoot application that is run using Maven.
 
-The frontend (client) is an Angular application that is run using the Angular CLI. The project can be run with a local MySQL database as the third tier of the app.
+1. Create application.properties to init Database
 
-Start the client:
+```sh
+# Go to server directory
+$ cd server
 
-- `npm install`
-- `ng serve` for a dev client on `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+# Create resources folder in main/
+$ mkdir src/main/resources
 
-Start the server:
+# Create application.properties
+$ touch src/main/resources/application.properties
+```
 
-- `mvn clean install`
-- `mvn spring-boot:run` for a dev server on `http://localhost:8080/`.
+2. Open application.properties and change `<db-name>` to your database and add your local MySQL username and password.
 
-## Database
+```java
+spring.datasource.url=jdbc:mysql://localhost:3306/<db-name>?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC
+spring.datasource.username=<your-db-username>
+spring.datasource.password=<your-db-password>
+spring.datasource.driver-class-name=com.mysql.cj.jdbc.Driver
 
-### Schema
+spring.jpa.show-sql=true
+spring.jpa.database-platform=org.hibernate.dialect.MySQL5Dialect
+spring.jpa.hibernate.ddl-auto=update
+```
 
-### Database Queries
+If you want to use our AWS RDS, replace the first 3 lines with these:
 
-## Mid tier APIs
+```java
+spring.datasource.url=jdbc:mysql://database-1.civmx6fdrslb.us-east-1.rds.amazonaws.com:3306/csearch
+spring.datasource.username=root
+spring.datasource.password=RDSdatabase
+```
 
-## UI data transport
+3. Run the project locally
+
+```sh
+# Clean & Instal Maven Project
+$ mvn clean install
+
+# Run application and open browser at localhost:8080
+$ mvn spring-boot:run
+```
+
+# Docker
+
+Build and run the server locally with Docker
+
+```sh
+# Go to server directory
+$ cd server/
+
+# Build CSearch into container using docker cli
+$ docker build -t csearch .
+
+# Run CSearch in localhost:8080/
+$ docker run -p 8080:8080 csearch
+```
+
+# Running Docker on AWS ECR
+
+```sh
+# Install AWS CLI
+$ brew install awscli
+
+# Configure AWS Account
+# Please Check the Test Account Credential in Final Report
+$ aws configure
+AWS Access Key ID [None]: <YOUR_ACCESS_KEY_HERE>
+AWS Secret Access Key [None]: <YOUR_SECRET_KEY_HERE>
+Default region name [None]: us-west-2
+Default output format [None]: json
+
+# run Docker AWS ECR
+$ docker run -p 8080:8080 103806448707.dkr.ecr.us-east-1.amazonaws.com/csearch:latest
+```
+
+# Diagram
+
+Within the docs folder you will find 3 diagrams that represent sample diagrams of our project's structure:
+
+## 1. Project Architecture
+
+![Project Architecture](docs/project_arc.png)
+
+## 2. UML Diagram
+
+![UML Diagram](docs/uml.png)
+
+## 3. Sequence Diagram
+
+![Sequence Diagram](docs/sequence.png)
+
+# Database
+
+## Schema
+
+We have 2 main models:
+
+1. CsProject
+
+```java
+@Entity
+@Table(name = "csprojects")
+public class CsProject {
+  @Id
+  @GeneratedValue(strategy = GenerationType.AUTO)
+  @Column(name = "pid")
+  private int id;
+  private String title;
+  private String description;
+  private String process;
+  private int difficulty;
+
+  public CsProject() {
+    setTitle("");
+    setDescription("");
+    setProcess("");
+    setDifficulty(0);
+  }
+
+  public CsProject(String title, String description, String process, int difficulty) {
+    setTitle(title);
+    setDescription(description);
+    setProcess(process);
+    setDifficulty(difficulty);
+  }
+```
+
+2. Link
+
+```java
+@Entity
+@Table(name = "links")
+public class Link {
+  @Id
+  @GeneratedValue(strategy = GenerationType.AUTO)
+  private int id;
+  private String link;
+  private int pid; // project id to which the link relates to
+
+  public Link(String link, int pid) {
+    this.link = link;
+    this.pid = pid;
+  }
+```
+
+## Database Queries
+
+We have 2 custom queries to get the result we want by searching the keywords.
+
+1. `CsRepository.java`
+
+```java
+@Repository("csrepo")
+public interface CsRepository extends CrudRepository<CsProject, Integer> {
+    @Query(value = "SELECT pid, title, description, process, difficulty FROM csprojects cs WHERE cs.title LIKE " +
+      "%:searchTerm% OR cs.description LIKE %:searchTerm% OR cs.process LIKE %:searchTerm%", nativeQuery = true)
+    List<CsProject> findProjectMatchingSearchTerm(String searchTerm);
+}
+```
+
+2. `LinkRepository.java`
+
+```java
+@Repository("lrepo")
+public interface LinkRepository extends CrudRepository<Link, Integer> {
+
+  @Query( value = "select id,link,pid from links where pid=:l_pid", nativeQuery = true)
+  List<Link> findByPid(int l_pid);
+}
+```
+
+# Mid tier APIs
+
+## How Angular call Server APIs
+
+```typescript
+// Create a CS Projects
+create(resource) {
+    return this.http.post(`uri/csproject`, resource);
+}
+
+// Display All CS Projects
+getAll() {
+    return this.http.get(`uri/all`, httpHeaders);
+}
+
+// Search a specific project based on given keywords
+search(term) {
+    return this.http.get(`uri/search/` + term, httpHeaders);
+}
+```
+
+## Server APIs
+
+```java
+@PostMapping("/csproject")
+public CsProject create(@RequestBody Map<String, String> body) {
+    title = body.get("title");
+    description = body.get("description");
+    process = body.get("process");
+    difficulty = body.get("difficulty");
+    links = body.get("links");
+
+    CsProject project = new CsProject(title, description, process, difficulty);
+    this.csRepo.save(project);
+    return getProjectById(project.getId());
+}
+
+@GetMapping("/all")
+ public List<Pair> index() {
+   return createList((List<CsProject>) this.csRepo.findAll());
+ }
+
+@GetMapping("/search/{searchTerm}")
+  public List<Pair> search(@PathVariable(value = "searchTerm") String searchTerm) {
+    return creatList(this.csRepo.findSearchTerm(searchTerm));
+}
+```
+
+# UI data transport
+
+1. Click [here](https://github.com/ellamaolson/CSearch/blob/master/server/pom.xml) to check for all server's dependencies that we use
+
+2. We use `package.json` to keep all dependencies and contain scripts to run the frontend. Click [here](https://github.com/ellamaolson/CSearch/blob/master/client/package.json) to view our front-end configuration
+
+# ⭐️ Authors
+
+👨🏻‍💻 **Calvin Nguyen** - [calvinqc](https://github.com/calvinqc)
+
+👩🏻‍💻 **Elana Olson** - [ellamaolson](https://github.com/ellamaolson)
+
+👩🏻‍💻 **Aleksandra Kovina** - [Aleksandra Kovina](https://github.com/Sashanity)
+
+See also the list of [contributors](https://github.com/DPA-SJSU/Degree-Planning-Assistant/contributors) who participated in this project.
+
+# License
+
+Use of this source code is governed by an **MIT license**.
