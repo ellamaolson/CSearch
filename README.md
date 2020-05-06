@@ -14,6 +14,9 @@ A search engine for software and computer science projects. Learn how to code, r
     <img src="https://img.shields.io/github/languages/top/ellamaolson/CSearch" alt="Top Language" />
 </a>
 <img alt="GitHub contributors" src="https://img.shields.io/github/contributors-anon/ellamaolson/CSearch">
+
+![CSearch gif demo](docs/csearch-demo.gif)
+
 </div>
 
 # 🌟 Features
