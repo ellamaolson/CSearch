@@ -2,11 +2,9 @@ package csearch.controller;
 
 import csearch.model.Link;
 import csearch.repository.LinkRepository;
-import javafx.util.Pair;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.*;
-
 import csearch.model.CsProject;
 import csearch.repository.CsRepository;
 
@@ -29,9 +27,12 @@ public class CsController {
    * @param project
    * @return
    */
-  private Pair createAPair(CsProject project) {
+  private Map<String, Object> createAPair(CsProject project) {
     List<Link> links = getProjectLinks(project.getId());
-    return new Pair<CsProject,List<Link>> (project, links);
+    return new HashMap<String, Object>() {{
+      put("key", project);
+      put("value", links);
+    }};
   }
 
   /**
@@ -39,8 +40,8 @@ public class CsController {
    * @param projects
    * @return
    */
-  private List<Pair> createAPairList(List<CsProject> projects) {
-    List<Pair> pairs = new ArrayList<Pair>();
+  private List<Map<String, Object>> createAPairList(List<CsProject> projects) {
+    List<Map<String, Object>> pairs = new ArrayList<>();
     for(CsProject project: projects) {
       pairs.add(createAPair(project));
     }
@@ -49,9 +50,13 @@ public class CsController {
 
   /**
    * Creates a new CsProject and associated Links
-   * @param body
    * @return CsProject
    */
+    @GetMapping
+    public String hello() {
+        return "Hello CSearch Dev Team With origin * with new update";
+    }
+
   @PostMapping("/csproject")
   public CsProject create(@RequestBody Map<String, String> body) {
     String title = body.get("title");
@@ -82,7 +87,7 @@ public class CsController {
    * @return
    */
   @GetMapping("/all")
-  public List<Pair> index() {
+  public List<Map<String, Object>> index() {
     return createAPairList((List<CsProject>) this.csRepo.findAll());
   }
 
@@ -98,7 +103,7 @@ public class CsController {
    * @return List of Pairs of projects
    */
   @GetMapping("/search/{searchTerm}")
-  public List<Pair> search(@PathVariable(value = "searchTerm") String searchTerm) {
+  public List<Map<String, Object>> search(@PathVariable(value = "searchTerm") String searchTerm) {
     return createAPairList(this.csRepo.findProjectMatchingSearchTerm(searchTerm));
   }
 
@@ -114,10 +119,13 @@ public class CsController {
   }
 
   @GetMapping("/about/{id}")
-  public Pair<CsProject, List<Link>> getAllAboutProject(@PathVariable(value = "id") Integer pid) {
+  public Map<String, Object> getAllAboutProject(@PathVariable(value = "id") Integer pid) {
     CsProject project = getProjectById(pid);
     List<Link> links = getProjectLinks(pid);
-    return new Pair<CsProject, List<Link>>(project, links);
+    return new HashMap<String, Object>() {{
+      put("key", project);
+      put("value", links);
+    }};
   }
 
   @PutMapping("/csproject/{id}")
